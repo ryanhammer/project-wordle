@@ -120,16 +120,6 @@ h1 {
   color: white;
 }
 
-.guess-input-wrapper input {
-  display: block;
-  width: 100%;
-  font-size: 2rem;
-  border: 2px solid var(--color-gray-300);
-  border-radius: 4px;
-  padding: 8px 16px;
-  outline-offset: 4px;
-}
-
 .banner {
   position: fixed;
   left: 0;

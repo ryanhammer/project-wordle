@@ -8,7 +8,7 @@ export default function GuessForm({ className }: GuessFormProps): JSX.Element {
   const [guess, setGuess] = useState('');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setGuess(event.target.value);
+    setGuess(event.target.value.toUpperCase());
   };
 
   return (
@@ -20,7 +20,7 @@ export default function GuessForm({ className }: GuessFormProps): JSX.Element {
         value={guess}
         onChange={handleChange}
         placeholder="Enter your guess"
-        className='block w-full border border-gray-300 rounded-md p-2 text-xl'
+        className='block w-full border-2 border-gray-700 rounded-[4px] outline outline-offset-4 outline-2 outline-blue-700 py-2 px-4 text-[2rem]'
       />
     </form>
   );
