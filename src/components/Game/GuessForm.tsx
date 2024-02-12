@@ -1,15 +1,17 @@
 import { useState } from 'react';
 import { z } from 'zod';
-import PreviousGuessList, { PreviousGuess } from './PreviousGuessList';
+import { PreviousGuess } from '../../types';
+import Guess from './Guess';
 
 interface GuessFormProps {
   className?: string;
+  previousGuesses: PreviousGuess[];
+  setPreviousGuesses: React.Dispatch<React.SetStateAction<PreviousGuess[]>>;
 }
 
-export default function GuessForm({ className }: GuessFormProps): JSX.Element {
+export default function GuessForm({ className, previousGuesses, setPreviousGuesses }: GuessFormProps): JSX.Element {
   const [guess, setGuess] = useState('');
   const [formErrors, setFormErrors] = useState<string[]>([]);
-  const [previousGuesses, setPreviousGuesses] = useState<PreviousGuess[]>([]);
 
   const guessSchema = z.string().length(5, 'All guesses must be 5 characters long.');
 
@@ -27,7 +29,7 @@ export default function GuessForm({ className }: GuessFormProps): JSX.Element {
         ...previousGuesses,
         {
           guessNumber: previousGuesses.length + 1,
-          guess,
+          value: guess,
         },
       ]);
     } catch (error: unknown) {
@@ -41,7 +43,7 @@ export default function GuessForm({ className }: GuessFormProps): JSX.Element {
 
   return (
     <>
-      <PreviousGuessList previousGuesses={previousGuesses} />
+      {/* <PreviousGuessList previousGuesses={previousGuesses} /> */}
       <form className={`${className} flex flex-col gap-2 h-24`} onSubmit={handleSubmit}>
         <label htmlFor='guess-input' className='text-xl'>
           Enter guess:
