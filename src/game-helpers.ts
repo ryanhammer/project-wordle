@@ -3,7 +3,7 @@
  * solving algorithm!
  */
 
-import { CheckGuessLetterResult } from "./types";
+import { CheckGuessLetterResult } from './types';
 
 type CheckGuessLetterStatus = 'correct' | 'misplaced' | 'incorrect';
 
