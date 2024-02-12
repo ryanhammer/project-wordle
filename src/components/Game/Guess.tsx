@@ -28,7 +28,7 @@ export default function Guess({ className, previousGuess, guessNumber, checkedGu
       {guessBlocks.map((block) => {
         return (
           <span
-            className={`relative w-[20%] grid border-2 ${block.blockClasses} place-content-center text-[2rem] aspect-square`}
+            className={`relative w-[20%] grid border-2 ${block.blockClasses} place-content-center text-[2rem] text-white aspect-square`}
             key={block.blockKey}
           >
             {block.blockValue}
