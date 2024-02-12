@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { range, sample } from '../../utils';
 import { WORDS } from '../../data';
-import { PreviousGuess } from '../../types';
+import { CheckedGuessResult, PreviousGuess } from '../../types';
 import { NUM_OF_GUESSES_ALLOWED } from '../../constants';
 import GuessForm from './GuessForm';
 import Guess from './Guess';
@@ -13,6 +13,7 @@ console.info({ answer });
 
 function Game() {
   const [previousGuesses, setPreviousGuesses] = useState<PreviousGuess[]>([]);
+  const [checkedGuessResults, setCheckedGuessResults] = useState<CheckedGuessResult[]>([]);
 
   const guesses = range(0, NUM_OF_GUESSES_ALLOWED).map((val) => val + 1);
 
@@ -20,10 +21,23 @@ function Game() {
     <>
       <div className='flex flex-col justify-center mb-4'>
         {guesses.map((guessNumber) => {
-          return <Guess key={guessNumber} previousGuess={previousGuesses[guessNumber - 1]} guessNumber={guessNumber} />;
+          return (
+            <Guess
+              key={guessNumber}
+              previousGuess={previousGuesses[guessNumber - 1]}
+              guessNumber={guessNumber}
+              checkedGuessResult={checkedGuessResults[guessNumber - 1]}
+            />
+          );
         })}
       </div>
-      <GuessForm previousGuesses={previousGuesses} setPreviousGuesses={setPreviousGuesses} />
+      <GuessForm
+        previousGuesses={previousGuesses}
+        setPreviousGuesses={setPreviousGuesses}
+        checkedGuessResults={checkedGuessResults}
+        setCheckedGuessResults={setCheckedGuessResults}
+        answer={answer}
+      />
     </>
   );
 }
