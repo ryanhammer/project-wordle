@@ -3,22 +3,22 @@ import { range } from '../../utils';
 
 interface GuessProps {
   className?: string;
-  previousGuesses: PreviousGuess[];
+  previousGuess: PreviousGuess | undefined;
   guessNumber: number;
 }
 
-export default function Guess({ className, previousGuesses, guessNumber }: GuessProps): JSX.Element {
-  const isPreviousGuess = previousGuesses.length > 0 && previousGuesses.length <= guessNumber;
+export default function Guess({ className, previousGuess, guessNumber }: GuessProps): JSX.Element {
+  console.log(previousGuess, guessNumber);
 
   const guessBlocks = range(0, 5).map((val) => {
     return {
       blockKey: `Guess ${guessNumber} character ${val + 1}`,
-      blockValue: isPreviousGuess ? previousGuesses[guessNumber - 1].value[val] : '',
+      blockValue: previousGuess ? previousGuess.value[val] : '',
     };
   });
 
   return (
-    <p className={`${className} flex gap-1 mb-1`}>
+    <p className={`${className ? className : ''} flex gap-1 mb-1`}>
       {guessBlocks.map((block) => {
         return (
           <span

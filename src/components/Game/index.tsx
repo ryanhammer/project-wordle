@@ -20,7 +20,7 @@ function Game() {
     <>
       <div className='flex flex-col justify-center mb-4'>
         {guesses.map((guessNumber) => {
-          return <Guess key={guessNumber} previousGuesses={previousGuesses} guessNumber={guessNumber} />;
+          return <Guess key={guessNumber} previousGuess={previousGuesses[guessNumber - 1]} guessNumber={guessNumber} />;
         })}
       </div>
       <GuessForm previousGuesses={previousGuesses} setPreviousGuesses={setPreviousGuesses} />
