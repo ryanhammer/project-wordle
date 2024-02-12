@@ -8,8 +8,6 @@ interface GuessProps {
 }
 
 export default function Guess({ className, previousGuess, guessNumber }: GuessProps): JSX.Element {
-  console.log(previousGuess, guessNumber);
-
   const guessBlocks = range(0, 5).map((val) => {
     return {
       blockKey: `Guess ${guessNumber} character ${val + 1}`,
