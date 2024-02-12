@@ -3,19 +3,19 @@
  * solving algorithm!
  */
 
-export function checkGuess(guess: string, answer: string) {
+import { CheckGuessLetterResult } from "./types";
+
+type CheckGuessLetterStatus = 'correct' | 'misplaced' | 'incorrect';
+
+export function checkGuess(guess: string, answer: string): CheckGuessLetterResult[] {
   // This constant is a placeholder that indicates we've successfully
   // dealt with this character (it's correct, or misplaced).
   const SOLVED_CHAR = '✓';
 
-  if (!guess) {
-    return null;
-  }
-
   const guessChars = guess.toUpperCase().split('');
   const answerChars = answer.split('');
 
-  const result = [];
+  const result: CheckGuessLetterResult[] = [];
 
   // Step 1: Look for correct letters.
   for (let i = 0; i < guessChars.length; i++) {
@@ -36,7 +36,7 @@ export function checkGuess(guess: string, answer: string) {
       continue;
     }
 
-    let status = 'incorrect';
+    let status: CheckGuessLetterStatus = 'incorrect';
     const misplacedIndex = answerChars.findIndex((char) => char === guessChars[i]);
     if (misplacedIndex >= 0) {
       status = 'misplaced';
