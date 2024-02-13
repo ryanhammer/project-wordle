@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import { z } from 'zod';
-import { CheckedGuessResult } from '../../types';
+import { CheckedGuessResult, GameStatus } from '../../types';
 import { checkGuess } from '../../game-helpers';
+import { NUM_OF_GUESSES_ALLOWED } from '../../constants';
 
 interface GuessFormProps {
   className?: string;
   checkedGuessResults: CheckedGuessResult[];
   setCheckedGuessResults: React.Dispatch<React.SetStateAction<CheckedGuessResult[]>>;
+  gameStatus: GameStatus;
+  setGameStatus: React.Dispatch<React.SetStateAction<GameStatus>>;
   answer: string;
 }
 
@@ -14,6 +17,8 @@ export default function GuessForm({
   className,
   checkedGuessResults,
   setCheckedGuessResults,
+  gameStatus,
+  setGameStatus,
   answer,
 }: GuessFormProps): JSX.Element {
   const [guess, setGuess] = useState('');
@@ -31,7 +36,16 @@ export default function GuessForm({
     try {
       guessSchema.parse(guess.trim());
       setFormErrors([]);
-      setCheckedGuessResults([...checkedGuessResults, checkGuess(guess, answer)]);
+      const guessResult = checkGuess(guess, answer);
+      setCheckedGuessResults([...checkedGuessResults, guessResult]);
+
+      if (guessResult.every((result) => result.status === 'correct')) {
+        setGameStatus('won');
+      }
+
+      if (gameStatus === 'in-progress' && checkedGuessResults.length === NUM_OF_GUESSES_ALLOWED) {
+        setGameStatus('lost');
+      }
     } catch (error: unknown) {
       if (error instanceof z.ZodError) {
         setFormErrors(error.errors.map((err) => err.message));
