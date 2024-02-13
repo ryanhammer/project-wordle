@@ -43,7 +43,6 @@ export default function GuessForm({
 
   return (
     <>
-      {/* <PreviousGuessList previousGuesses={previousGuesses} /> */}
       <form className={`${className} flex flex-col gap-2 h-24`} onSubmit={handleSubmit}>
         <label htmlFor='guess-input' className='text-xl'>
           Enter guess:
