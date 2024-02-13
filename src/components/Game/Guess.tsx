@@ -1,9 +1,9 @@
-import { CheckedGuessResult, PreviousGuess } from '../../types';
+import { CheckedGuessResult } from '../../types';
 import { range } from '../../utils';
 
 interface GuessProps {
   className?: string;
-  previousGuess: PreviousGuess | undefined;
+  previousGuess: CheckedGuessResult | undefined;
   guessNumber: number;
   checkedGuessResult: CheckedGuessResult | undefined;
 }
@@ -18,7 +18,7 @@ export default function Guess({ className, previousGuess, guessNumber, checkedGu
   const guessBlocks = range(0, 5).map((val) => {
     return {
       blockKey: `Guess ${guessNumber} character ${val + 1}`,
-      blockValue: previousGuess ? previousGuess.value[val] : '',
+      blockValue: previousGuess && previousGuess.length > 0 ? previousGuess[val].letter : '',
       blockClasses: checkedGuessResult ? checkedGuessClasses[checkedGuessResult[val].status] : 'border-gray-700',
     };
   });

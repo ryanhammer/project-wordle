@@ -1,12 +1,10 @@
 import { useState } from 'react';
 import { z } from 'zod';
-import { CheckedGuessResult, PreviousGuess } from '../../types';
+import { CheckedGuessResult } from '../../types';
 import { checkGuess } from '../../game-helpers';
 
 interface GuessFormProps {
   className?: string;
-  previousGuesses: PreviousGuess[];
-  setPreviousGuesses: React.Dispatch<React.SetStateAction<PreviousGuess[]>>;
   checkedGuessResults: CheckedGuessResult[];
   setCheckedGuessResults: React.Dispatch<React.SetStateAction<CheckedGuessResult[]>>;
   answer: string;
@@ -14,8 +12,6 @@ interface GuessFormProps {
 
 export default function GuessForm({
   className,
-  previousGuesses,
-  setPreviousGuesses,
   checkedGuessResults,
   setCheckedGuessResults,
   answer,
@@ -35,13 +31,6 @@ export default function GuessForm({
     try {
       guessSchema.parse(guess.trim());
       setFormErrors([]);
-      setPreviousGuesses([
-        ...previousGuesses,
-        {
-          guessNumber: previousGuesses.length + 1,
-          value: guess,
-        },
-      ]);
       setCheckedGuessResults([...checkedGuessResults, checkGuess(guess, answer)]);
     } catch (error: unknown) {
       if (error instanceof z.ZodError) {
