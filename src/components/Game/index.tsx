@@ -16,6 +16,8 @@ function Game() {
 
   const guesses = range(0, NUM_OF_GUESSES_ALLOWED).map((val) => val + 1);
 
+  const bannerStyleClasses = 'fixed left-0 right-0 bottom-0 p-8 w-full max-w-[600px] my-0 mx-auto rounded-t text-center text-white will-change-transform banner-animation';
+
   return (
     <>
       <div className='flex flex-col justify-center mb-4'>
@@ -38,7 +40,7 @@ function Game() {
         answer={answer}
       />
       {gameStatus === 'won' && (
-        <div className='happy banner'>
+        <div className={`${bannerStyleClasses} bg-success`}>
           <p>
             <strong>Congratulations!</strong> Got it in{' '}
             <strong>
@@ -49,7 +51,7 @@ function Game() {
         </div>
       )}
       {gameStatus === 'lost' && (
-        <div className='sad banner'>
+        <div className={`${bannerStyleClasses} bg-error`}>
           <p>
             Sorry, the correct answer is <strong>{answer}</strong>.
           </p>
